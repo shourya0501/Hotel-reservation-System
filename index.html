@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Book Sunrise Residency in Goa. Live availability, guest registration, a 15-minute hold and secure checkout — in your language.">
+  <title>Sunrise Residency | Goa · Online Reservations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#book">Skip to booking</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">&#9728;</span>
+        <div>
+          <strong id="hotelName">Sunrise Residency</strong>
+          <small data-i18n="brand.tag">Calangute Beach, Goa</small>
+        </div>
+      </a>
+
+      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" data-i18n-aria="nav.menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="sr-only" data-i18n="nav.menu">Menu</span>
+      </button>
+
+      <nav class="site-nav" id="siteNav" aria-label="Primary">
+        <a href="#book" data-i18n="nav.book">Book</a>
+        <a href="#rooms" data-i18n="nav.rooms">Rooms</a>
+        <a href="#amenities" data-i18n="nav.amenities">Amenities</a>
+        <a href="#arrive" data-i18n="nav.arrive">Getting here</a>
+        <a href="#policies" data-i18n="nav.policies">Stay info</a>
+        <a href="#help" data-i18n="nav.help">Traveler help</a>
+      </nav>
+
+      <div class="header-tools">
+        <label class="lang-switch">
+          <span class="sr-only" data-i18n="lang.label">Language</span>
+          <select id="langSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="zh">中文</option>
+            <option value="ar">العربية</option>
+            <option value="de">Deutsch</option>
+            <option value="ja">日本語</option>
+          </select>
+        </label>
+        <div class="account">
+          <span id="accountName" class="account-name" hidden></span>
+          <button type="button" class="btn btn-ghost" id="signInBtn" data-i18n="auth.signin">Sign in</button>
+          <button type="button" class="btn btn-ghost" id="signOutBtn" hidden data-i18n="auth.signout">Sign out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <p class="hero-kicker" data-i18n="hero.kicker">North Goa · Beachfront boutique stay</p>
+      <h1 data-i18n="hero.title">Wake up to the Arabian Sea.</h1>
+      <p class="hero-lead" id="welcomeText" data-i18n="hero.lead">Welcome, traveler. Book in four clear steps — your own language, live availability, and a 15-minute room hold while you pay.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#book" data-i18n="hero.cta">Book your stay</a>
+        <a class="btn btn-on-dark" href="#arrive" data-i18n="hero.arrive">How to get here</a>
+      </div>
+      <ul class="hero-facts">
+        <li data-i18n="fact.checkin">Check-in 2:00 PM</li>
+        <li data-i18n="fact.checkout">Check-out 11:00 AM</li>
+        <li data-i18n="fact.currency">Prices in INR</li>
+        <li data-i18n="fact.id">Passport or government ID</li>
+      </ul>
+    </div>
+  </section>
+
+  <main class="container layout">
+
+    <section class="checkout" id="book" aria-labelledby="checkoutTitle">
+      <p class="section-kicker" data-i18n="book.kicker">Reservations</p>
+      <h1 id="checkoutTitle" data-i18n="book.title">Book your stay</h1>
+      <p class="lede" data-i18n="book.lede">Choose dates, tell us who is staying, then pay securely. International guests: keep your passport handy — hotels in India need it at check-in.</p>
+
+      <ol class="stepper" aria-label="Checkout progress">
+        <li data-step="1">
+          <button type="button" class="step-btn">
+            <span class="step-num"></span>
+            <span data-i18n="step.stay">Your stay</span>
+          </button>
+        </li>
+        <li data-step="2">
+          <button type="button" class="step-btn">
+            <span class="step-num"></span>
+            <span data-i18n="step.guests">Guest details</span>
+          </button>
+        </li>
+        <li data-step="3">
+          <button type="button" class="step-btn">
+            <span class="step-num"></span>
+            <span data-i18n="step.payment">Payment</span>
+          </button>
+        </li>
+        <li data-step="4">
+          <button type="button" class="step-btn">
+            <span class="step-num"></span>
+            <span data-i18n="step.review">Review &amp; pay</span>
+          </button>
+        </li>
+      </ol>
+      <p id="stepCaption" class="step-caption"></p>
+
+      <div id="alert" class="alert alert-error" role="alert" hidden></div>
+
+      <!-- ===== STAGE 1: STAY ===== -->
+      <section class="panel" data-panel="1" aria-labelledby="step1Title">
+        <h2 id="step1Title" data-i18n="stay.title">Your stay</h2>
+        <p class="panel-help" data-i18n="stay.help">Select check-in, check-out and how many people are staying. Availability refreshes live.</p>
+
+        <form id="travelForm" class="travel-form" novalidate>
+          <div class="field">
+            <label for="checkIn" data-i18n="stay.checkin">Check-in</label>
+            <input type="date" id="checkIn" name="check_in" required>
+          </div>
+          <div class="field">
+            <label for="checkOut" data-i18n="stay.checkout">Check-out</label>
+            <input type="date" id="checkOut" name="check_out" required>
+          </div>
+          <div class="field">
+            <label for="guests" data-i18n="stay.guests">Guests</label>
+            <input type="number" id="guests" name="guests" min="1" max="10" value="2" inputmode="numeric" required>
+          </div>
+          <button type="submit" class="btn btn-secondary" id="searchBtn" data-i18n="stay.search">Check availability</button>
+        </form>
+
+        <p id="liveStatus" class="live-status" aria-live="polite"></p>
+
+        <div id="roomList" class="room-list" role="radiogroup" aria-label="Available room types"></div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="toStep2" disabled data-i18n="stay.continue">Continue to guest details</button>
+        </div>
+      </section>
+
+      <!-- ===== STAGE 2: GUEST DETAILS ===== -->
+      <section class="panel" data-panel="2" aria-labelledby="step2Title" hidden>
+        <h2 id="step2Title" data-i18n="guest.title">Guest details</h2>
+        <p class="panel-help" data-i18n="guest.help">Indian hotels register every overnight guest. Use the same name and ID you will show at the front desk.</p>
+
+        <form id="guestForm" novalidate>
+          <fieldset class="fieldset">
+            <legend data-i18n="guest.who">Who is checking in?</legend>
+            <div class="choice-row" role="radiogroup" aria-label="Who is checking in">
+              <label class="choice">
+                <input type="radio" name="bookingFor" value="self" checked>
+                <span data-i18n="guest.self">I am the primary guest</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="bookingFor" value="other">
+                <span data-i18n="guest.other">I am booking for someone else</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend data-i18n="guest.primary">Primary guest</legend>
+            <p class="hint" data-i18n="guest.primaryHint">The adult who will present ID at check-in. Must be 18 or older.</p>
+
+            <div class="field">
+              <label for="guestFullName" data-i18n="guest.fullName">Full name (as on passport / ID)</label>
+              <input id="guestFullName" autocomplete="name" maxlength="100" required>
+              <p class="field-error" data-error-for="guestFullName"></p>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="guestDob" data-i18n="guest.dob">Date of birth</label>
+                <input type="date" id="guestDob" autocomplete="bday" required>
+                <p class="field-error" data-error-for="guestDob"></p>
+              </div>
+              <div class="field">
+                <label for="guestGender" data-i18n="guest.gender">Gender</label>
+                <select id="guestGender" required>
+                  <option value="" data-i18n="guest.select">Select</option>
+                  <option value="female" data-i18n="guest.female">Female</option>
+                  <option value="male" data-i18n="guest.male">Male</option>
+                  <option value="nonbinary" data-i18n="guest.nonbinary">Non-binary</option>
+                  <option value="unspecified" data-i18n="guest.unspecified">Prefer not to say</option>
+                </select>
+                <p class="field-error" data-error-for="guestGender"></p>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="guestNationality" data-i18n="guest.nationality">Nationality</label>
+                <select id="guestNationality" required></select>
+                <p class="field-error" data-error-for="guestNationality"></p>
+              </div>
+              <div class="field">
+                <label for="guestResidence" data-i18n="guest.residence">Country of residence</label>
+                <select id="guestResidence" required></select>
+                <p class="field-error" data-error-for="guestResidence"></p>
+              </div>
+            </div>
+
+            <div id="foreignerNote" class="notice" hidden>
+              <strong data-i18n="guest.foreignTitle">International guest</strong>
+              <p data-i18n="guest.foreignBody">Please carry your passport and a valid Indian visa (or visa-free/e-visa approval) for check-in. C-Form registration is completed at the desk from your passport details.</p>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="guestIdType" data-i18n="guest.idType">ID type</label>
+                <select id="guestIdType" required></select>
+                <p class="field-error" data-error-for="guestIdType"></p>
+              </div>
+              <div class="field">
+                <label for="guestIdNumber" data-i18n="guest.idNumber">ID / passport number</label>
+                <input id="guestIdNumber" autocomplete="off" maxlength="20" required>
+                <p class="hint" data-i18n="guest.idHint">Enter it exactly as printed. Only a masked copy is shown on your receipt.</p>
+                <p class="field-error" data-error-for="guestIdNumber"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend data-i18n="guest.contact">Contact for this booking</legend>
+            <div class="field-row">
+              <div class="field">
+                <label for="contactEmail" data-i18n="guest.email">Email</label>
+                <input type="email" id="contactEmail" autocomplete="email" required>
+                <p class="field-error" data-error-for="contactEmail"></p>
+              </div>
+              <div class="field">
+                <label for="contactPhone" data-i18n="guest.phone">Phone (with country code)</label>
+                <input type="tel" id="contactPhone" autocomplete="tel" inputmode="tel" placeholder="+91 9876543210" required>
+                <p class="hint" data-i18n="guest.phoneHint">Include country code, e.g. +91, +1, +44.</p>
+                <p class="field-error" data-error-for="contactPhone"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset" id="extraGuestsWrap" hidden>
+            <legend data-i18n="guest.companions">Other guests in the room</legend>
+            <p class="hint" data-i18n="guest.companionsHint">Names as on their ID. Everyone staying overnight must be listed.</p>
+            <div id="extraGuests"></div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend data-i18n="guest.arrival">Arrival &amp; purpose</legend>
+            <div class="field-row">
+              <div class="field">
+                <label for="guestArrival" data-i18n="guest.eta">Estimated arrival</label>
+                <select id="guestArrival">
+                  <option value="" data-i18n="guest.etaUnknown">Not sure yet</option>
+                  <option value="before-12" data-i18n="guest.etaBefore12">Before 12:00 (luggage hold)</option>
+                  <option value="12-15" data-i18n="guest.eta1215">12:00 – 15:00</option>
+                  <option value="15-18" data-i18n="guest.eta1518">15:00 – 18:00</option>
+                  <option value="18-21" data-i18n="guest.eta1821">18:00 – 21:00</option>
+                  <option value="after-21" data-i18n="guest.etaAfter21">After 21:00 (late check-in)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="guestPurpose" data-i18n="guest.purpose">Purpose of stay</label>
+                <select id="guestPurpose" required>
+                  <option value="" data-i18n="guest.select">Select</option>
+                  <option value="leisure" data-i18n="guest.leisure">Leisure / holiday</option>
+                  <option value="business" data-i18n="guest.business">Business</option>
+                  <option value="family" data-i18n="guest.family">Visiting family</option>
+                  <option value="medical" data-i18n="guest.medical">Medical</option>
+                  <option value="transit" data-i18n="guest.transit">Transit / layover</option>
+                  <option value="other" data-i18n="guest.purposeOther">Other</option>
+                </select>
+                <p class="field-error" data-error-for="guestPurpose"></p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="guestFrom" data-i18n="guest.from">Arriving from (city or airport)</label>
+              <input id="guestFrom" maxlength="80" placeholder="GOI, BOM, LHR, Dubai…">
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend data-i18n="guest.prefs">Preferences &amp; requests</legend>
+            <p class="hint" data-i18n="guest.prefsHint">Optional — we will try to honour these, subject to availability.</p>
+            <div class="request-grid">
+              <label class="choice"><input type="checkbox" name="request" value="late-checkin"><span data-i18n="req.late">Late check-in (after 10 PM)</span></label>
+              <label class="choice"><input type="checkbox" name="request" value="early-checkin"><span data-i18n="req.early">Early check-in</span></label>
+              <label class="choice"><input type="checkbox" name="request" value="airport-pickup"><span data-i18n="req.airport">Airport pickup</span></label>
+              <label class="choice"><input type="checkbox" name="request" value="accessible"><span data-i18n="req.accessible">Accessible room</span></label>
+              <label class="choice"><input type="checkbox" name="request" value="extra-bed"><span data-i18n="req.bed">Extra bed</span></label>
+              <label class="choice"><input type="checkbox" name="request" value="crib"><span data-i18n="req.crib">Baby crib</span></label>
+              <label class="choice"><input type="checkbox" name="request" value="high-floor"><span data-i18n="req.high">High floor</span></label>
+              <label class="choice"><input type="checkbox" name="request" value="quiet"><span data-i18n="req.quiet">Quiet room</span></label>
+              <label class="choice"><input type="checkbox" name="request" value="non-smoking"><span data-i18n="req.nonsmoking">Non-smoking room</span></label>
+              <label class="choice"><input type="checkbox" name="request" value="sea-view"><span data-i18n="req.seaview">Sea view if available</span></label>
+            </div>
+            <div class="field">
+              <label for="guestNotes" data-i18n="guest.notes">Anything else we should know?</label>
+              <textarea id="guestNotes" rows="3" maxlength="400" data-i18n-placeholder="guest.notesPh" placeholder="Allergies, dietary needs, anniversary, extra towels…"></textarea>
+            </div>
+          </fieldset>
+
+          <div class="actions">
+            <button type="button" class="btn btn-ghost" id="backToStep1" data-i18n="nav.backStay">Back to stay</button>
+            <button type="submit" class="btn btn-primary" id="toStep3" data-i18n="guest.continue">Continue to payment</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ===== STAGE 3: PAYMENT DETAILS ===== -->
+      <section class="panel" data-panel="3" aria-labelledby="step3Title" hidden>
+        <h2 id="step3Title" data-i18n="pay.title">Payment details</h2>
+        <p class="panel-help" data-i18n="pay.help">Your card is verified over HTTPS. We only keep the last four digits. Submitting this step holds your room for 15 minutes.</p>
+
+        <form id="paymentForm" novalidate>
+          <fieldset class="fieldset">
+            <legend data-i18n="pay.card">Card</legend>
+            <div class="field">
+              <label for="cardNumber" data-i18n="pay.number">Card number</label>
+              <input id="cardNumber" autocomplete="cc-number" inputmode="numeric" placeholder="4242 4242 4242 4242" required>
+              <p class="field-error" data-error-for="cardNumber"></p>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="cardExpiry" data-i18n="pay.expiry">Expiry (MM/YY)</label>
+                <input id="cardExpiry" autocomplete="cc-exp" inputmode="numeric" placeholder="MM/YY" maxlength="5" required>
+                <p class="field-error" data-error-for="cardExpiry"></p>
+              </div>
+              <div class="field">
+                <label for="cardCvv" data-i18n="pay.cvv">CVV</label>
+                <input type="password" id="cardCvv" autocomplete="cc-csc" inputmode="numeric" placeholder="123" maxlength="4" required>
+                <p class="field-error" data-error-for="cardCvv"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <p class="note" data-i18n="pay.note">Card details are sent over HTTPS for verification. Only the last four digits are stored.</p>
+
+          <div class="actions">
+            <button type="button" class="btn btn-ghost" id="backToStep2" data-i18n="nav.backGuests">Back to guest details</button>
+            <button type="submit" class="btn btn-primary" id="submitStep2" data-i18n="pay.continue">Hold room &amp; review</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ===== STAGE 4: PAYMENT SUMMARY ===== -->
+      <section class="panel" data-panel="4" aria-labelledby="step4Title" hidden>
+        <h2 id="step4Title" data-i18n="review.title">Review &amp; pay</h2>
+        <p class="panel-help" data-i18n="review.help">Check names, dates and the amount. Paying now confirms the reservation.</p>
+
+        <div class="hold-box" role="status">
+          <span data-i18n="review.held">Your room is held for</span>
+          <strong id="holdTimer" class="hold-timer">15:00</strong>
+        </div>
+
+        <dl id="summaryList" class="summary-list"></dl>
+
+        <div class="actions">
+          <button type="button" class="btn btn-ghost" id="backToPayment" data-i18n="nav.backPay">Back to payment</button>
+          <div class="actions-right">
+            <button type="button" class="btn btn-danger-ghost" id="cancelHold" data-i18n="review.cancel">Cancel booking</button>
+            <button type="button" class="btn btn-primary" id="payBtn" data-i18n="review.pay">Pay now</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CONFIRMATION ===== -->
+      <section class="panel receipt" data-panel="5" aria-labelledby="receiptTitle" hidden>
+        <div id="receiptBody"></div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="newBookingBtn" data-i18n="receipt.another">Book another stay</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===== REVIEW ORDER DETAILS SIDEBAR ===== -->
+    <aside class="sidebar" aria-labelledby="orderTitle">
+      <div class="order-card">
+        <h2 id="orderTitle" data-i18n="order.title">Review order details</h2>
+        <p id="orderEmpty" class="muted" data-i18n="order.empty">Choose dates and a room to see your order.</p>
+        <dl id="orderDetails" class="order-details"></dl>
+        <p class="note" data-i18n="order.tax">Tax is 12% of the room charge. The booking fee is charged once per reservation. All amounts are Indian Rupees (INR).</p>
+      </div>
+    </aside>
+
+  </main>
+
+  <section class="content-band" id="rooms">
+    <div class="container">
+      <p class="section-kicker" data-i18n="rooms.kicker">Stay</p>
+      <h2 data-i18n="rooms.title">Rooms with sea air and slow mornings</h2>
+      <p class="lede" data-i18n="rooms.lede">Live rates and remaining rooms appear in the booking form above. These are the kinds of stays you can expect.</p>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3 data-i18n="rooms.deluxe">Deluxe room</h3>
+          <p data-i18n="rooms.deluxeBody">Queen bed, rain shower, workspace. Comfortable for two. Garden side, quiet after sunset.</p>
+        </article>
+        <article class="feature-card">
+          <h3 data-i18n="rooms.sea">Sea-view room</h3>
+          <p data-i18n="rooms.seaBody">Balcony facing the water. Ideal if you want sunrise from bed and an evening breeze.</p>
+        </article>
+        <article class="feature-card">
+          <h3 data-i18n="rooms.family">Family suite</h3>
+          <p data-i18n="rooms.familyBody">Two sleeping areas and space for a crib. Ask for an extra bed in guest details if you need one.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-band content-band-alt" id="amenities">
+    <div class="container">
+      <p class="section-kicker" data-i18n="amen.kicker">On property</p>
+      <h2 data-i18n="amen.title">What travelers usually ask for</h2>
+      <div class="amenity-grid">
+        <article class="amenity"><h3 data-i18n="amen.wifi">Fast Wi-Fi</h3><p data-i18n="amen.wifiBody">In rooms and the lobby. Good enough for calls home.</p></article>
+        <article class="amenity"><h3 data-i18n="amen.airport">Airport desk</h3><p data-i18n="amen.airportBody">Pickup from GOI or MOPA — tick it under requests when you book.</p></article>
+        <article class="amenity"><h3 data-i18n="amen.breakfast">Breakfast</h3><p data-i18n="amen.breakfastBody">Veg, non-veg and lighter options. Tell us allergies in the notes.</p></article>
+        <article class="amenity"><h3 data-i18n="amen.desk">24-hour desk</h3><p data-i18n="amen.deskBody">Late flights are normal here. Night check-in is expected, not a favour.</p></article>
+        <article class="amenity"><h3 data-i18n="amen.lang">Languages</h3><p data-i18n="amen.langBody">English, Hindi, Konkani. Switch this page to your language anytime.</p></article>
+        <article class="amenity"><h3 data-i18n="amen.safe">In-room safe</h3><p data-i18n="amen.safeBody">Passports and foreign currency stay locked while you are at the beach.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-band" id="arrive">
+    <div class="container">
+      <p class="section-kicker" data-i18n="arrive.kicker">Getting here</p>
+      <h2 data-i18n="arrive.title">Easy to find, even on your first trip to Goa</h2>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3 data-i18n="arrive.air">By air</h3>
+          <p data-i18n="arrive.airBody">Dabolim (GOI) is about 45 minutes. Mopa (GOX) is about 70 minutes. Share your flight number in the notes and we can arrange a driver.</p>
+        </article>
+        <article class="feature-card">
+          <h3 data-i18n="arrive.train">By train</h3>
+          <p data-i18n="arrive.trainBody">Thivim and Madgaon are the usual stations. Taxis and prepaid cabs run to Calangute through the day.</p>
+        </article>
+        <article class="feature-card">
+          <h3 data-i18n="arrive.address">Address</h3>
+          <p data-i18n="arrive.addressBody">Sunrise Residency, Calangute Beach Road, North Goa 403516, India. Pin the hotel name in any maps app — our sign is amber at night.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-band content-band-alt" id="policies">
+    <div class="container">
+      <p class="section-kicker" data-i18n="pol.kicker">Stay info</p>
+      <h2 data-i18n="pol.title">What you need at check-in</h2>
+      <div class="policy-grid">
+        <article>
+          <h3 data-i18n="pol.id">Photo ID</h3>
+          <p data-i18n="pol.idBody">Every guest over 18 must show original photo ID. Indian guests: Aadhaar, passport, driving licence or voter ID. Foreign guests: passport with a valid visa or e-visa.</p>
+        </article>
+        <article>
+          <h3 data-i18n="pol.foreign">Foreign travelers</h3>
+          <p data-i18n="pol.foreignBody">We complete the statutory C-Form from your passport. Keep the same passport you enter in this form. A printed or digital visa copy helps the desk move faster.</p>
+        </article>
+        <article>
+          <h3 data-i18n="pol.age">Age &amp; children</h3>
+          <p data-i18n="pol.ageBody">The primary guest must be 18+. Children sharing a bed with parents are welcome; request a crib or extra bed while booking if you need one.</p>
+        </article>
+        <article>
+          <h3 data-i18n="pol.pay">Payment</h3>
+          <p data-i18n="pol.payBody">We charge in Indian Rupees. International cards are accepted. Your room is held for 15 minutes at review so nobody else can take it while you pay.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Sunrise Residency</strong>
+        <p data-i18n="footer.where">Calangute Beach, North Goa, India</p>
+      </div>
+      <div>
+        <p data-i18n="footer.contact">Front desk +91 832 000 0000 · stay@sunriseresidency.example</p>
+        <p class="muted" data-i18n="footer.copy">A quiet boutique stay. Book directly for live availability.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SIGN-IN AND REGISTRATION DIALOG ===== -->
+  <dialog id="authDialog" aria-labelledby="authTitle">
+    <div class="dialog-head">
+      <h2 id="authTitle" data-i18n="auth.title">Sign in to book</h2>
+      <button type="button" class="icon-btn" id="authClose" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" class="tab" id="tabLogin" aria-selected="true" data-i18n="auth.signin">Sign in</button>
+      <button type="button" role="tab" class="tab" id="tabRegister" aria-selected="false" data-i18n="auth.create">Create account</button>
+    </div>
+
+    <form id="authForm" novalidate>
+      <div class="field" data-register-only hidden>
+        <label for="authName" data-i18n="auth.name">Full name</label>
+        <input id="authName" autocomplete="name" maxlength="100">
+      </div>
+      <div class="field">
+        <label for="authEmail" data-i18n="guest.email">Email</label>
+        <input type="email" id="authEmail" autocomplete="email" required>
+      </div>
+      <div class="field" data-register-only hidden>
+        <label for="authPhone" data-i18n="guest.phone">Phone (with country code)</label>
+        <input type="tel" id="authPhone" autocomplete="tel" inputmode="tel" placeholder="+91 9876543210">
+      </div>
+      <div class="field">
+        <label for="authPassword" data-i18n="auth.password">Password</label>
+        <input type="password" id="authPassword" autocomplete="current-password" required>
+        <p class="hint" data-register-only hidden data-i18n="auth.passwordHint">At least 8 characters.</p>
+      </div>
+      <p id="authError" class="field-error" role="alert"></p>
+      <button type="submit" class="btn btn-primary btn-block" id="authSubmit" data-i18n="auth.signin">Sign in</button>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
